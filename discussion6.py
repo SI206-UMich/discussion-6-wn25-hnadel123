@@ -1,5 +1,6 @@
 import unittest
 import os
+import csv
 
 
 def load_csv(f):
@@ -18,7 +19,7 @@ def load_csv(f):
     base_path = os.path.abspath(os.path.dirname(__file__))
     full_path = os.path.join(base_path, f)
     # use this 'full_path' variable as the file that you open
-    my_dict = {}
+    my_nested_dict = {}
 
     with open(full_path, newline='') as csvfile:
         reader = csv.reader(csvfile)
@@ -30,12 +31,12 @@ def load_csv(f):
                 year = headers[i]
                 value = row[i]
 
-                if year not in my_dict:
-                    my_dict[year] = {}
+                if year not in my_nested_dict:
+                    my_nested_dict[year] = {}
 
-                my_dict[year][month] = value  
+                my_nested_dict[year][month] = value  
 
-    return my_dict
+    return my_nested_dict
 
 def get_annual_max(d):
     '''
