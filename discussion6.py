@@ -18,6 +18,24 @@ def load_csv(f):
     base_path = os.path.abspath(os.path.dirname(__file__))
     full_path = os.path.join(base_path, f)
     # use this 'full_path' variable as the file that you open
+    my_dict = {}
+
+    with open(full_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        headers = next(reader) 
+        
+        for row in reader:
+            month = row[0] 
+            for i in range(1, len(headers)):
+                year = headers[i]
+                value = row[i]
+
+                if year not in my_dict:
+                    my_dict[year] = {}
+
+                my_dict[year][month] = value  
+
+    return my_dict
 
 def get_annual_max(d):
     '''
