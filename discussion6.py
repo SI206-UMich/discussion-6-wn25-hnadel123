@@ -21,22 +21,18 @@ def load_csv(f):
     # use this 'full_path' variable as the file that you open
     my_nested_dict = {}
 
-    with open(full_path, newline='') as csvfile:
-        reader = csv.reader(csvfile)
-        headers = next(reader) 
+    with open(full_path) as fh:
+        r = csv.reader(fh)
+        rows = [] 
+        print(f"Add the data from the csv")
+        for row in r:
+            print(f"Adding {row} to rows")
+            rows.append(row)
+        print(f"Final value of rows in {rows}")
+    print("Create a dictionary d")
         
-        for row in reader:
-            month = row[0] 
-            for i in range(1, len(headers)):
-                year = headers[i]
-                value = row[i]
-
-                if year not in my_nested_dict:
-                    my_nested_dict[year] = {}
-
-                my_nested_dict[year][month] = value  
-
-    return my_nested_dict
+        
+    
 
 def get_annual_max(d):
     '''
@@ -90,3 +86,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+print("----------------------------------------------------------------------")
+flight_dict = load_csv('daily_visitors.csv')
+print("Output of load_csv:", flight_dict, "\n")
+print("Output of get_annual_max:", get_annual_max(flight_dict), "\n")
+print("Output of get_month_avg:", get_month_avg(flight_dict), "\n")
+
